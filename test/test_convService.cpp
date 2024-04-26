@@ -31,16 +31,20 @@ TEST(CREATING_SERVICE, DISABLED_PASSING_COL_PARAMETERS){
    system("rm ./dataConf.Txt");
  }
 
- TEST(CREATING_SERVICE, PASSING_COL_NAMES){
+ TEST(CREATING_SERVICE, DISABLED_PASSING_COL_NAMES){
    auto myService = new convService("databaseTest1.db","../../data/info.txt","Datos","../../data/data.csv");
-
-
 
    delete myService;
    system("rm ./databaseTest1.db");
  
  }
+TEST(CREATING_SERVICE, INSERTING_DATA){
+   auto myService = new convService("databaseTest1.db","../../data/info.txt","Datos","../../data/data.csv");
 
+   delete myService;
+ //  system("rm ./databaseTest1.db");
+ 
+ }
 /*
  TEST(DBCREATION, TABLECREATION_COLUMNS){
     std::string  data("../../data/generalDB.db");

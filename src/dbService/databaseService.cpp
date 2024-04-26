@@ -30,7 +30,7 @@ int databaseService::openDB(){
     }
     else
     {
-        std::cout<<"database open"<<std::endl;
+       // std::cout<<"database open"<<std::endl;
         return 0;
     }
 
@@ -124,6 +124,7 @@ int databaseService::dropTable(std::string tableName){
 int databaseService::insertElementTable(std::string Element,std::string tableName){
     
     std::string sql = "INSERT INTO " +tableName+" VALUES("+ Element +");";
+    
     this->rc = sqlite3_exec(this->db, sql.c_str(), NULL, 0, NULL);
 
     if (rc != SQLITE_OK) {

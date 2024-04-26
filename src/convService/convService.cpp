@@ -6,10 +6,9 @@
 #include <string>
 
 convService::convService(std::string dbName,std::string infoFile, std::string tableNameP, std::string dataFileP){
-    std::cout<<"databaseName:"<<dbName<<"\n";
-
+    
     this->outputFile=dbName;
-    this->tableName=tableName;
+    this->tableName=tableNameP;
     this->confFile=infoFile;
     this->dataFile=dataFileP;
 
@@ -51,10 +50,7 @@ bool convService::checkColumnsTypes(){
             return false;
         }
     }
-    std::cout<<"Columns type checked.  \n";
-    for(auto i:this->vectorConf)
-        std::cout<<i<<"|";
-    std::cout<<"\n";
+    
     columnF.close();
     return true;
 
@@ -71,18 +67,14 @@ bool convService::checkColumnsNames(){
         return false;
     }
     else{
-        std::getline(infoFile,lineNames);
-    
+        std::getline(infoFile,lineNames);    
         std::stringstream s2(lineNames);
         while(getline(s2,localName,',')){
             std::transform(localName.begin(),localName.end(),localName.begin(),toupper);
             this->vectorNames.push_back(localName);
         }
     }
-    for(auto i:this->vectorNames)
-        std::cout<<i<<"|";
     
-    std::cout<<"\n";
     infoFile.close();
     return true;
 }
@@ -98,19 +90,54 @@ bool convService::generateTable(){
         return false;
     }
         
+    //creating tables
+    std::vector<std::string> sentenceVector;
 
-    std::string sentenceVector;
-    
-    sentenceVector+= "idP INT,";
-
-    for (int i=0;i<this->vectorConf.size();i++){
-        sentenceVector+= vectorNames[i]+" "+vectorConf[i]+",";
+    std::string localString;
+    for (int i=0;i<this->vectorConf.size()-1;i++){
+        localString+=vectorNames[i]+" "+vectorConf[i]+",";
     }
-    //setting by default primary key first column
-    sentenceVector+=" PRIMARY KEY (idP)";
+       localString+=vectorNames[vectorNames.size()-1]+" "+vectorConf[vectorConf.size()-1];
+    sentenceVector.push_back(localString);
+    
+    if(this->database->createTable(this->tableName,sentenceVector)==-1){
+        return false;
+    };
 
-    std::cout<<"SQL sentence:\n";
-    std::cout<<sentenceVector<<"\n";
+    //inserting elements
+    std::string tableNameLocal{this->tableName};
+    tableNameLocal+=" (";
+    for (auto i=0;i<this->vectorNames.size()-1;i++ ){
+        tableNameLocal+= vectorNames[i] +",";
+    }
+    tableNameLocal+=vectorNames[vectorNames.size()-1]+")";
+    
+    std::fstream infoFile{this->dataFile,infoFile.in};
+    std::string line;
+    if(!infoFile.is_open()){
+        std::cout<<"Failed to open column Names file\n";
+        return false;
+    }
+    else{
+        std::getline(infoFile,line);                    
+        while(getline(infoFile,line)){  
+            std::stringstream s{line};
+            std::string local;
+            std::vector<std::string> vLocal;
+            std::string sqlLocal;
+            while(getline(s,local,',')){
+                vLocal.push_back("'"+local+"'");
+            }
+            for(unsigned int i=0;i<vLocal.size()-1;i++){
+                sqlLocal+=vLocal[i]+",";
+            }
+            sqlLocal+=vLocal[vLocal.size()-1];
+            
+            this->database->insertElementTable(sqlLocal,tableNameLocal);
+        }
+    }
+    
+    infoFile.close();
     return true;
 }
 
@@ -118,5 +145,5 @@ bool convService::generateTable(){
 
 convService::~convService(){
     delete this->database;
-    std::cout<<"erasing pointer"<<std::endl;
+   
 }
