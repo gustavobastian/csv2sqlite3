@@ -14,6 +14,15 @@ The system must have installed sqlite3, in Linux Systems:
 sudo apt-get install sqlite3 sqlite3_analyzer 
 ```
 
+## Building
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
 ## Example of use
 
 ```bash

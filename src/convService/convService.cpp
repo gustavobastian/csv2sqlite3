@@ -52,7 +52,9 @@ bool convService::checkColumnsTypes(){
         }
     }
     std::cout<<"Columns type checked.  \n";
-
+    for(auto i:this->vectorConf)
+        std::cout<<i<<"|";
+    std::cout<<"\n";
     columnF.close();
     return true;
 
@@ -86,10 +88,33 @@ bool convService::checkColumnsNames(){
 }
 
 bool convService::generateTable(){
-    this->checkColumnsTypes();
-    this->checkColumnsNames();
+    
+    if (this->checkColumnsTypes()==false){
+        return false;
+    }
+        
+    
+    if(this->checkColumnsNames()==false){
+        return false;
+    }
+        
+
+    std::string sentenceVector;
+    
+    sentenceVector+= "idP INT,";
+
+    for (int i=0;i<this->vectorConf.size();i++){
+        sentenceVector+= vectorNames[i]+" "+vectorConf[i]+",";
+    }
+    //setting by default primary key first column
+    sentenceVector+=" PRIMARY KEY (idP)";
+
+    std::cout<<"SQL sentence:\n";
+    std::cout<<sentenceVector<<"\n";
     return true;
 }
+
+
 
 convService::~convService(){
     delete this->database;
