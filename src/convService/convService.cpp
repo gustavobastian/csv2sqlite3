@@ -98,7 +98,12 @@ bool convService::generateTable(){
         localString+=vectorNames[i]+" "+vectorConf[i]+",";
     }
        localString+=vectorNames[vectorNames.size()-1]+" "+vectorConf[vectorConf.size()-1];
+    
+    std::cout<<"localstring: "<<localString<<"\n";
+
     sentenceVector.push_back(localString);
+
+    
     
     if(this->database->createTable(this->tableName,sentenceVector)==-1){
         return false;
@@ -119,20 +124,22 @@ bool convService::generateTable(){
         return false;
     }
     else{
+        unsigned int i=0;
         std::getline(infoFile,line);                    
         while(getline(infoFile,line)){  
             std::stringstream s{line};
             std::string local;
             std::vector<std::string> vLocal;
             std::string sqlLocal;
+            
+            
             while(getline(s,local,',')){
                 vLocal.push_back("'"+local+"'");
             }
             for(unsigned int i=0;i<vLocal.size()-1;i++){
                 sqlLocal+=vLocal[i]+",";
             }
-            sqlLocal+=vLocal[vLocal.size()-1];
-            
+            sqlLocal+=vLocal[vLocal.size()-1];            
             this->database->insertElementTable(sqlLocal,tableNameLocal);
         }
     }

@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <convService.h>
+#include <databaseService.h>
 
 
 enum class MyArgs{
@@ -69,6 +71,10 @@ int main(int argc, char* argv[]){
     std::string tableName;
     std::string dbName;
 
+    if(argc==0 | argc<2){
+        printManual();
+        return 0;
+    }
     if(argv[1]=="--m"){
         printManual();
         return 0;
@@ -119,5 +125,7 @@ int main(int argc, char* argv[]){
                 break;      
         }
     }
+    auto myService = new convService(dbName,dataConfigFile,tableName,dataFile);
+
     
 }

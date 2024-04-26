@@ -19,6 +19,7 @@ add_subdirectory( test/ )
 add_executable(csv2sqlite3 src/main.cpp)
 
 target_include_directories(csv2sqlite3 PUBLIC  /include /lib/gtest/googletest/include/gtest)
+target_link_libraries(csv2sqlite3 convLib db2Lib sqlite3)
 
 enable_testing()
 
