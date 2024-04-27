@@ -18,7 +18,7 @@
 
 
 /**
- * @brief class used to communicate to de sqlite database
+ * @brief class used to communicate to the sqlite database
  * 
  */
 class databaseService {

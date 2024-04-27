@@ -14,6 +14,16 @@ The system must have installed sqlite3, in Linux Systems:
 sudo apt-get install sqlite3 sqlite3_analyzer 
 ```
 
+## Documentation
+
+In order to build the documentation, you must have installed doxygen
+
+```bash
+sudo apt-get install doxygen
+sudo apt-get install graphviz
+```
+
+
 ## Building
 
 ```bash
