@@ -6,6 +6,21 @@
 #include<vector>
 
 
+/**
+ * @file convService.h
+ * @author Gustavo Bastian (bastian.gustavo@gmail.com)
+ * @brief Interface class that insert csv file data to a sqlite3 database
+ * @version 0.1
+ * @date 2024-4-25
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
+/**
+ * @brief class used to import csv data to sqlite3 table
+ * 
+ */
 class convService
 {
     private:    

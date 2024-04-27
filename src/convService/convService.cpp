@@ -5,6 +5,16 @@
 #include <algorithm>
 #include <string>
 
+
+/**
+ * @brief constructor of the class
+ * 
+ * @param dbName Name of the database
+ * @param infoFile Path to the file that contains information of type of each colum
+ * @param tabNameP Table Name
+ * @param dataFileP Path to the csv file that contains the information 
+ */
+
 convService::convService(std::string dbName,std::string infoFile, std::string tableNameP, std::string dataFileP){
     
     this->outputFile=dbName;
@@ -17,7 +27,10 @@ convService::convService(std::string dbName,std::string infoFile, std::string ta
     this->generateTable();
 };
 
-
+/**
+/// @brief Check correctnes in the columns type specifications
+/// @return true is they are correct, false if there is a problem
+*/
 bool convService::checkColumnsTypes(){
     //columns types
     std::string lineConf,localConf;
@@ -55,6 +68,12 @@ bool convService::checkColumnsTypes(){
     return true;
 
 }
+
+
+/**
+* @brief imports from the columns type file the types and stores them in a vector
+* @return false if there was a problem 
+*/
 bool convService::checkColumnsNames(){
     std::string lineNames,localName;
     std::vector<std::string> vectorNames;
@@ -78,14 +97,16 @@ bool convService::checkColumnsNames(){
     infoFile.close();
     return true;
 }
-
+/**
+* @brief after check that all the information needed is present, generates the table and populate it with the data
+* @return false if there was a problem when inserting or generating the table 
+*/
 bool convService::generateTable(){
     
     if (this->checkColumnsTypes()==false){
         return false;
     }
-        
-    
+            
     if(this->checkColumnsNames()==false){
         return false;
     }
@@ -102,8 +123,6 @@ bool convService::generateTable(){
     std::cout<<"localstring: "<<localString<<"\n";
 
     sentenceVector.push_back(localString);
-
-    
     
     if(this->database->createTable(this->tableName,sentenceVector)==-1){
         return false;
@@ -142,8 +161,7 @@ bool convService::generateTable(){
             sqlLocal+=vLocal[vLocal.size()-1];            
             this->database->insertElementTable(sqlLocal,tableNameLocal);
         }
-    }
-    
+    }    
     infoFile.close();
     return true;
 }

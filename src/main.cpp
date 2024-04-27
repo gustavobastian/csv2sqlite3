@@ -13,6 +13,12 @@ enum class MyArgs{
     i
 };
 
+/**
+* @brief return the kind of argument present, output database file(-o), path to file containing type of each column (-i),
+* table name(-t), path to input data csv file(-f)  
+* @param str string with the specification
+* @return object type myArgs
+*/
 MyArgs stringToMyArgs(const std::string& str){
     if(str=="-o"){
         return MyArgs::o;
@@ -29,12 +35,18 @@ MyArgs stringToMyArgs(const std::string& str){
         return MyArgs::t;
 }
 
-
+/**
+ * @brief prints to console the correct way of usage of the program
+ * 
+ */
 void printUsage(){
     std::cout << "Incorrect usage or bad parameters!\n";
     std::cout << "csv2sqlite3 -f [datafile.csv] -i [datacolumnstype.txt] -o [outputdb] -t [tablename]\n";
 }
-
+/**
+ * @brief prints information about the program and how to correct use it
+ * 
+ */
 void printManual(){
     std::cout << "csv2sqlite3 csv to sqlite3 table conversor\n";    
     std::cout << "by Gustavo Bastian(2024)\n";    
@@ -63,6 +75,13 @@ void printManual(){
     std::cout << "\n";    
 }
 
+/**
+ * @brief main funcion
+ * 
+ * @param argc number of arguments
+ * @param argv list of arguments
+ * @return int 
+ */
 int main(int argc, char* argv[]){
     std::string arg1{argv[1]};
     std::vector<std::string> argumentsVector;
@@ -127,5 +146,5 @@ int main(int argc, char* argv[]){
     }
     auto myService = new convService(dbName,dataConfigFile,tableName,dataFile);
 
-    
+    delete myService;  
 }
