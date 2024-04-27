@@ -24,7 +24,7 @@ convService::convService(std::string dbName,std::string infoFile, std::string ta
 
     this->database = new databaseService(dbName);
     this->database->openDB();
-    this->generateTable();
+  //  this->generateTable();
 };
 
 /**
@@ -119,8 +119,6 @@ bool convService::generateTable(){
         localString+=vectorNames[i]+" "+vectorConf[i]+",";
     }
        localString+=vectorNames[vectorNames.size()-1]+" "+vectorConf[vectorConf.size()-1];
-    
-    std::cout<<"localstring: "<<localString<<"\n";
 
     sentenceVector.push_back(localString);
     

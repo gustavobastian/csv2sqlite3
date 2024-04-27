@@ -9,13 +9,15 @@
 
 using namespace std;
 
-TEST(CREATING_SERVICE, DISABLED_PASSING_PARAMETERS){
+TEST(CREATING_SERVICE, PASSING_PARAMETERS){
    auto myService = new convService("databaseTest1.db","here2","here3","here4");
+   auto output= myService->checkColumnsTypes();
+   EXPECT_EQ(output,false);
    delete myService;
    system("rm ./databaseTest1.db");
  }
 
-TEST(CREATING_SERVICE, DISABLED_PASSING_COL_PARAMETERS){
+TEST(CREATING_SERVICE, PASSING_COL_PARAMETERS){
    std::fstream dataConf{"dataConf.txt",dataConf.out};
    if(!dataConf.is_open()){
         std::cout<<"Fail to generate  configuration file\n";
@@ -26,190 +28,53 @@ TEST(CREATING_SERVICE, DISABLED_PASSING_COL_PARAMETERS){
 
    dataConf.close();
    auto myService = new convService("databaseTest1.db","dataConf.txt","here3","here4");
+
+   auto output= myService->checkColumnsTypes();
+   EXPECT_EQ(output,true);
+
    delete myService;
    system("rm ./databaseTest1.db");
-   system("rm ./dataConf.Txt");
+   system("rm ./dataConf.txt");
  }
 
- TEST(CREATING_SERVICE, DISABLED_PASSING_COL_NAMES){
+ TEST(CREATING_SERVICE, PASSING_FALSE_COL_PARAMETERS){
+   std::fstream dataConf{"dataConf.txt",dataConf.out};
+   if(!dataConf.is_open()){
+        std::cout<<"Fail to generate  configuration file\n";
+    }
+    else{
+        dataConf<<"INTEGER,SALT,DECIMAL,BLOB\n";
+    }
+
+   dataConf.close();
+   auto myService = new convService("databaseTest1.db","dataConf.txt","here3","here4");
+
+   auto output= myService->checkColumnsTypes();
+   EXPECT_EQ(output,false);
+
+   delete myService;
+   system("rm ./databaseTest1.db");
+   system("rm ./dataConf.txt");
+ }
+
+ TEST(CREATING_SERVICE, PASSING_COL_NAMES){
+   //using example data in {project}/data
    auto myService = new convService("databaseTest1.db","../../data/info.txt","Datos","../../data/data.csv");
 
+   auto output= myService->checkColumnsNames();
+   EXPECT_EQ(output,true);
    delete myService;
    system("rm ./databaseTest1.db");
  
  }
 TEST(CREATING_SERVICE, INSERTING_DATA){
    auto myService = new convService("databaseTest1.db","../../data/info.txt","Datos","../../data/data.csv");
-
+   myService->generateTable();
    delete myService;
- //  system("rm ./databaseTest1.db");
+   system("rm ./databaseTest1.db");
  
  }
-/*
- TEST(DBCREATION, TABLECREATION_COLUMNS){
-    std::string  data("../../data/generalDB.db");
-    auto *myDb= new databaseService(data);
-    myDb->openDB();
 
-    std::vector <std::string> columns;
-    std::vector <std::string> columns2;
-
-    columns.push_back("id INTEGER PRIMARY KEY");
-    columns.push_back("firstname TEXT");
-    columns.push_back("lastname TEXT");
-    columns.push_back("age INTEGER");
-
-    auto output = myDb->createTable("myTable",columns);    
-    EXPECT_EQ(output,0);
-
-    auto output1 = myDb->createTable("",columns);    
-    EXPECT_EQ(output1,-1);
-
-    auto output2 = myDb->createTable("MyTable",columns2);    
-    EXPECT_EQ(output2,-1);
-
-    auto output3 = myDb->dropTable("myTable");
-    EXPECT_EQ(output3,0);
-
-    delete myDb;
- }
-
-TEST(DBCREATION, TABLEDROP){
-    std::string  data("../../data/generalDB.db");
-    auto *myDb= new databaseService(data);
-    myDb->openDB();
-
-    std::vector <std::string> columns;
-    
-    columns.push_back("id INTEGER PRIMARY KEY");
-    columns.push_back("firstname TEXT");
-    columns.push_back("lastname TEXT");
-    columns.push_back("age INTEGER");
-    auto output = myDb->createTable("myTable",columns);    
-    EXPECT_EQ(output,0);
-    auto output2 = myDb->dropTable("myTable");
-    EXPECT_EQ(output2,0);
-    delete myDb;
- } 
-
- TEST(DBINSERTION, INSERTELEMENT){
-    std::string  data("../../data/generalDB.db");
-    auto *myDb= new databaseService(data);
-    myDb->openDB();
-
-    std::vector <std::string> columns;
-    
-    //table for test
-    columns.push_back("id INTEGER PRIMARY KEY");
-    columns.push_back("firstname TEXT");
-    columns.push_back("lastname TEXT");
-    columns.push_back("age INTEGER");
-
-    //element for test
-    std::string value= "1, 'Pedro','Perez',20 ";
-    std::string returnValue= "1,Pedro,Perez,20,;";
-    //creation
-    auto output = myDb->createTable("myTable",columns);    
-    EXPECT_EQ(output,0);
-    
-    //test
-
-    auto output1 = myDb->insertElementTable(value,"myTable");
-    EXPECT_EQ(output1,0);
-
-    auto output2 = myDb->findElement("myTable","id","1");
-    
-    EXPECT_EQ(output2,returnValue);
-
-    //cleaning
-    auto output3 = myDb->dropTable("myTable");
-    EXPECT_EQ(output3,0);
-    delete myDb;
- } 
-
-
-
- TEST(DBINSERTION, RETRIEVE_MULTIPLE_ELEMENTS){
-    std::string  data("../../data/generalDB.db");
-    auto *myDb= new databaseService(data);
-    myDb->openDB();
-
-    std::vector <std::string> columns;
-    
-    //table for test
-    columns.push_back("id INTEGER PRIMARY KEY");
-    columns.push_back("firstname TEXT");
-    columns.push_back("lastname TEXT");
-    columns.push_back("age INTEGER");
-
-    //element for test
-    std::string value= "1, 'Pedro','Perez',20 ";
-    std::string value_2= "2, 'Juan','Perez',22 ";
-    //creation
-    auto output = myDb->createTable("myTable",columns);    
-    EXPECT_EQ(output,0);
-    
-    //test
-
-    auto output1 = myDb->insertElementTable(value,"myTable");
-    EXPECT_EQ(output1,0);
-    auto output2 = myDb->insertElementTable(value_2,"myTable");
-    EXPECT_EQ(output2,0);
-
-    auto output3 = myDb->getAllElement("myTable",3);
-    
-
-    //cleaning
-    auto output4 = myDb->dropTable("myTable");
-    EXPECT_EQ(output4,0);
-    
-    delete myDb;
- } 
-
-
- TEST(DBINSERTION, ALTERING){
-    std::string  data("../../data/generalDB.db");
-    auto *myDb= new databaseService(data);
-    myDb->openDB();
-
-    std::vector <std::string> columns;
-    
-    //table for test
-    columns.push_back("id INTEGER PRIMARY KEY");
-    columns.push_back("firstname TEXT");
-    columns.push_back("lastname TEXT");
-    columns.push_back("age INTEGER");
-
-    //element for test
-    std::string value= "1, 'Pedro','Perez',20 ";    
-
-    std::string newValues= "firstname='Pedro2', lastname='Perez2', age=20 ";    
-    std::string returnValue= "1,Pedro2,Perez2,20,;";  
-    int index=1;
-    //creation
-    auto output = myDb->createTable("myTable",columns);    
-    EXPECT_EQ(output,0);
-    
-    //test
-
-    auto output1 = myDb->insertElementTable(value,"myTable");
-    auto output2 = myDb->updateElementTable(newValues,"myTable",index);
-    EXPECT_EQ(output2,0);
-    auto output3 = myDb->findElement("myTable","id","1");
-    
-    EXPECT_EQ(output3,returnValue);
-
-    
-    
-
-    //cleaning
-    auto output4 = myDb->dropTable("myTable");
-    EXPECT_EQ(output4,0);
-    delete myDb;
- } 
-
-
-*/
 
 int main(int argc, char **argv) {
 
