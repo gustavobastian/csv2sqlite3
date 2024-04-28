@@ -175,7 +175,7 @@ bool convService::generateTable(){
         
         sqlLocal.at(sqlLocal.size()-1)=' ';
         this->database->insertChunkElementTable(sqlLocal,tableNameLocal);
-        std::cout<<"inserted:"<<j*500+i<<" registers\n";
+        std::cout<<"\ninserted:"<<j*500+i<<" registers\n";
     }    
     infoFile.close();
     return true;
