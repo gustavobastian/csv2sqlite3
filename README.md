@@ -1,4 +1,6 @@
-# Console app for importing data from table from a csv file to a sqlite3 database
+# csv-sqlite Importer
+
+Console app for importing data from table from a csv file to a sqlite3 database
 
 ## System requirements  for building
 
@@ -23,7 +25,6 @@ sudo apt-get install doxygen
 sudo apt-get install graphviz
 ```
 
-
 ## Building
 
 ```bash
@@ -38,6 +39,7 @@ cmake --build .
 ```bash
 csv2sqlite3 -f data.csv -i data.txt -o databaseName -t tableName
 ```
-## Result:
 
-Tested importing 72274 registers (about 3.7 MB)
+## Result
+
+Tested importing 72274 registers (about 3.7 MB). 
