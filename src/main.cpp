@@ -49,6 +49,7 @@ void printUsage(){
  */
 void printManual(){
     std::cout << "csv2sqlite3 csv to sqlite3 table conversor\n";    
+    std::cout << "V0.1.1\n";    
     std::cout << "by Gustavo Bastian(2024)\n";    
     std::cout << "bastian.gustavo@gmail.com\n";    
     std::cout << "\n";    
