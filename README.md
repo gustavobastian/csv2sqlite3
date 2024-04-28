@@ -1,6 +1,6 @@
 # csv-sqlite Importer
 
-Console app for importing data from table from a csv file to a sqlite3 database
+Console app for importing data from table in a csv file to a sqlite3 database.
 
 ## System requirements  for building
 
