@@ -36,5 +36,8 @@ cmake --build .
 ## Example of use
 
 ```bash
-csv2sqlite3 data.csv data.txt -o databaseName
+csv2sqlite3 -f data.csv -i data.txt -o databaseName -t tableName
 ```
+## Result:
+
+Tested importing 72274 registers (about 3.7 MB)
