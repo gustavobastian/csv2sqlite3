@@ -24,7 +24,7 @@ convService::convService(std::string dbName,std::string infoFile, std::string ta
 
     this->database = new databaseService(dbName);
     this->database->openDB();
-  //  this->generateTable();
+    this->generateTable();
 };
 
 /**
@@ -142,23 +142,40 @@ bool convService::generateTable(){
     }
     else{
         unsigned int i=0;
+        std::string sqlLocal;
         std::getline(infoFile,line);                    
         while(getline(infoFile,line)){  
             std::stringstream s{line};
             std::string local;
             std::vector<std::string> vLocal;
-            std::string sqlLocal;
-            
-            
+            sqlLocal+="(";
             while(getline(s,local,',')){
                 vLocal.push_back("'"+local+"'");
             }
             for(unsigned int i=0;i<vLocal.size()-1;i++){
                 sqlLocal+=vLocal[i]+",";
             }
-            sqlLocal+=vLocal[vLocal.size()-1];            
-            this->database->insertElementTable(sqlLocal,tableNameLocal);
+            sqlLocal+=vLocal[vLocal.size()-1];   
+            sqlLocal+="),";         
+            i++;
+            if(i==100)
+                {
+                    sqlLocal.at(sqlLocal.size()-1)=' ';                    
+                    this->database->insertChunkElementTable(sqlLocal,tableNameLocal);
+                    sqlLocal+="(";
+                    i=0;
+                    std::string l="";
+                    std::cin>>l;
+                    if(l=="q"){
+                        infoFile.close();
+                        return true;
+                    }
+                    };                    
         }
+        std::cout<<"last\n";
+        sqlLocal.at(sqlLocal.size()-1)=' ';
+        this->database->insertChunkElementTable(sqlLocal,tableNameLocal);
+        std::cout<<"here\n";
     }    
     infoFile.close();
     return true;
