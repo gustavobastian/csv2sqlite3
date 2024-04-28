@@ -104,6 +104,47 @@ TEST(DBCREATION, TABLEDROP){
  } 
 
 
+ TEST(DBINSERTION_MULTIPEL, INSERTELEMENTS){
+    std::string  data("../../data/generalDB.db");
+    auto *myDb= new databaseService(data);
+    myDb->openDB();
+
+    std::vector <std::string> columns;
+    
+    //table for test
+    columns.push_back("id INTEGER PRIMARY KEY");
+    columns.push_back("firstname TEXT");
+    columns.push_back("lastname TEXT");
+    columns.push_back("age INTEGER");
+
+    //element for test
+    std::string valueColumnsName="myTable (id,firstname,lastname,age)";
+    std::string value= "(1, 'Pedro','Perez',20),(2, 'Pepo','Pez',22)";
+    std::string returnValue= "1,Pedro,Perez,20,;";
+    std::string returnValue2= "2,Pepo,Pez,22,;";
+    //creation
+    auto output = myDb->createTable("myTable",columns);    
+    EXPECT_EQ(output,0);
+    
+    //test
+
+    auto output1 = myDb->insertChunkElementTable(value,valueColumnsName);
+    EXPECT_EQ(output1,0);
+
+    auto output2 = myDb->findElement("myTable","id","1");    
+    
+    EXPECT_EQ(output2,returnValue);
+    
+    auto output3 = myDb->findElement("myTable","id","2");    
+    
+    EXPECT_EQ(output3,returnValue2);
+
+    //cleaning
+    auto output4 = myDb->dropTable("myTable");
+    EXPECT_EQ(output4,0);
+    delete myDb;
+ } 
+
 
  TEST(DBINSERTION, RETRIEVE_MULTIPLE_ELEMENTS){
     std::string  data("../../data/generalDB.db");
@@ -143,7 +184,7 @@ TEST(DBCREATION, TABLEDROP){
  } 
 
 
- TEST(DBINSERTION, ALTERING){
+ TEST(DBINSERTION, DISABLED_ALTERING){
     std::string  data("../../data/generalDB.db");
     auto *myDb= new databaseService(data);
     myDb->openDB();

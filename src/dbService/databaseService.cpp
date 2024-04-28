@@ -135,7 +135,26 @@ int databaseService::insertElementTable(std::string Element,std::string tableNam
     return 0;
 };
 
+/**
+ * @brief Inserting a multiple rows to a database table
+ * 
+ * @param Element string with values to insert into the table, example: (value1,value2,value3),(value12,value22,value32)
+ * @param tableName name of the table and the columns, example: tablename (column1, column2, colum3)
+ * @return int 0:success, -1:error
+ */
+int databaseService::insertChunkElementTable(std::string Element,std::string tableName){
+    
+    std::string sql = "INSERT INTO " +tableName+" VALUES "+ Element +";";
+    
+    this->rc = sqlite3_exec(this->db, sql.c_str(), NULL, 0, NULL);
 
+    if (rc != SQLITE_OK) {
+        std::cout << "Error inserting data: " << sqlite3_errmsg(db) << std::endl;
+        return -1;
+    }
+
+    return 0;
+};
 /**
  * @brief updating a row to a database table
  * 
