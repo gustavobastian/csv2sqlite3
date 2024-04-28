@@ -136,12 +136,15 @@ bool convService::generateTable(){
     
     std::fstream infoFile{this->dataFile,infoFile.in};
     std::string line;
+    unsigned int i=0;
+    unsigned int j=0;
     if(!infoFile.is_open()){
         std::cout<<"Failed to open column Names file\n";
         return false;
     }
     else{
-        unsigned int i=0;
+        
+        std::string progression=".";
         std::string sqlLocal;
         std::getline(infoFile,line);                    
         while(getline(infoFile,line)){  
@@ -158,24 +161,21 @@ bool convService::generateTable(){
             sqlLocal+=vLocal[vLocal.size()-1];   
             sqlLocal+="),";         
             i++;
-            if(i==100)
+            if(i==500)
                 {
-                    sqlLocal.at(sqlLocal.size()-1)=' ';                    
+                    sqlLocal.at(sqlLocal.size()-1)=' '; 
                     this->database->insertChunkElementTable(sqlLocal,tableNameLocal);
-                    sqlLocal+="(";
+                    sqlLocal="";
                     i=0;
-                    std::string l="";
-                    std::cin>>l;
-                    if(l=="q"){
-                        infoFile.close();
-                        return true;
-                    }
+                    j++;
+                    std::cout<<progression<<"\n";
+                    progression+=".";
                     };                    
         }
-        std::cout<<"last\n";
+        
         sqlLocal.at(sqlLocal.size()-1)=' ';
         this->database->insertChunkElementTable(sqlLocal,tableNameLocal);
-        std::cout<<"here\n";
+        std::cout<<"inserted:"<<j*500+i<<" registers\n";
     }    
     infoFile.close();
     return true;
