@@ -5,6 +5,7 @@
 #include <convService.h>
 #include <databaseService.h>
 #include <thread>
+#include <memory>
 
 
 enum class MyArgs{
@@ -146,7 +147,7 @@ int main(int argc, char* argv[]){
                 break;      
         }
     }
-    auto myService = new convService(dbName,dataConfigFile,tableName,dataFile);
+    auto myService = std::make_shared<convService>(dbName,dataConfigFile,tableName,dataFile);//new convService(dbName,dataConfigFile,tableName,dataFile);
 
-    delete myService;  
 }
+
