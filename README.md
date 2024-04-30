@@ -18,7 +18,7 @@ You must install a decompressed version of googletest 1.21.1 in a /lib folder.
 The system must have installed sqlite3, in Linux Systems:
 
 ```bash
-sudo apt-get install sqlite3 sqlite3_analyzer 
+sudo apt-get install libsqlite3-0 sqlite3_analyzer 
 ```
 
 ## Documentation 📚
