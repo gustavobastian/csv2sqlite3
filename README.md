@@ -2,7 +2,7 @@
 
 Console app for importing data from table in a csv file to a sqlite3 database.
 
-## Purpose
+## Purpose 🤔
 
 The objetive of this small project is import information from csvs files(from online sites, like [www.kaggle.com](www.kaggle.com)) to small databases in order to process or apply some machine learning algorithms to them.
 
@@ -39,7 +39,7 @@ cmake ..
 cmake --build .
 ```
 
-## Example of use
+## Example of use 💡
 
 ```bash
 csv2sqlite3 -f data.csv -i data.txt -o databaseName -t tableName
@@ -56,7 +56,7 @@ INT,TEXT,TEXT,INT
 </details>
 
 
-## Result
+## Result ⚙️
 
 Tested importing 72274 registers (about 3.7 MB). 
 
