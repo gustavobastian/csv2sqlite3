@@ -53,7 +53,7 @@ Where 'data.csv' is the file with the data, 'data.txt' contains information of d
 INT,TEXT,TEXT,INT
 ```
 
-<details>
+</details>
 
 
 ## Result
