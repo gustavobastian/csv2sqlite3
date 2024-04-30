@@ -34,7 +34,14 @@ class convService
     std::vector<std::string> vectorNames;
         
     public:
+        /// @brief class constructor
+        /// @param dbName Name of the db file 
+        /// @param infoFile path to the file with information of the types of each column
+        /// @param tableName name of the table
+        /// @param dataFile path to the csv(comma limiter) file with data
         convService(std::string dbName,std::string infoFile, std::string tableName, std::string dataFile);
+
+        
         bool generateTable();
         bool flushingData();
         bool checkColumnsTypes();
