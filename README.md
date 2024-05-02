@@ -37,6 +37,7 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
+cpack -G DEB
 ```
 
 ## Example of use 💡
