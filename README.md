@@ -63,3 +63,8 @@ Tested importing 72274 registers (about 3.7 MB).
 ## Licence 📄
 
 This project is under ([MIT](https://choosealicense.com/licenses/mit/)) license. You can read the file [LICENSE.md](LICENSE.md) in order to learn how to use the material.
+
+## Special thanks and links recommendations
+
+The CPACK management is very well explained in [https://decovar.dev/blog/2021/09/23/cmake-cpack-package-deb-apt/](https://decovar.dev/blog/2021/09/23/cmake-cpack-package-deb-apt/) (big thanks to retifrav).\
+Another place to look at is CPACK itself [https://cmake.org/cmake/help/book/mastering-cmake/chapter/Packaging%20With%20CPack.html](https://cmake.org/cmake/help/book/mastering-cmake/chapter/Packaging%20With%20CPack.html)
