@@ -86,13 +86,7 @@ void printManual(){
  * @return int 
  */
 int main(int argc, char* argv[]){
-    std::string arg1{argv[1]};
-    std::vector<std::string> argumentsVector;
-    std::string dataFile;
-    std::string dataConfigFile;
-    std::string tableName;
-    std::string dbName;
-
+    
     if(argc==0 | argc<2){
         printManual();
         return 0;
@@ -101,6 +95,17 @@ int main(int argc, char* argv[]){
         printManual();
         return 0;
     }
+
+
+    std::string arg1{argv[1]};
+    std::vector<std::string> argumentsVector;
+    std::string dataFile;
+    std::string dataConfigFile;
+    std::string tableName;
+    std::string dbName;
+
+    
+
     
     if(arg1=="--h"){
         printManual();
