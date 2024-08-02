@@ -8,10 +8,7 @@ The objetive of this small project is import information from csvs files(from on
 
 ## System requirements  for building 📝
 
-You must install a decompressed version of googletest 1.21.1 in a /lib folder.
-<details><summary>Directory for building🔍</summary><br>
-<img alt="img" style="width:150px;" src="img/img.png">
-</details>
+This app is needs Cmake 3.15. For running the test files you must navigate to ./build/test, and the inside the directory start the tests. 
 
 ## System requirements  for running 📝
 

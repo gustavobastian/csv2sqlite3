@@ -1,3 +1,7 @@
 lib
 build
 .vscode
+_packages
+.nx
+cmake
+.nx/cache
