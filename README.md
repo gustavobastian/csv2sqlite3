@@ -1,6 +1,17 @@
 # csv-sqlite Importer
 
-Console app for importing data from table in a csv file to a sqlite3 database.
+Console app for importing data from table in a csv file to a sqlite3 database. It was tested in a Ubuntu 24.04 (dev Branch).
+
+
+## Directory tree description
+
+* /data : has some example files for using during tests.
+* /cmake : has information for packaging the project.
+* /docs : has information for generating the documentation with doxygen.
+* /img: place for saving images(not used)
+* /include: header files.
+* /src : source files.
+* /test : test files.
 
 ## Purpose 🤔
 
@@ -8,7 +19,7 @@ The objetive of this small project is import information from csvs files(from on
 
 ## System requirements  for building 📝
 
-This app is needs Cmake 3.15. For running the test files you must navigate to ./build/test, and the inside the directory start the tests. 
+This app is needs Cmake 3.15. For running the test files you must navigate to ./build/test, and the inside the directory run the programs.
 
 ## System requirements  for running 📝
 
@@ -36,6 +47,8 @@ cmake ..
 cmake --build .
 cpack -G DEB
 ```
+
+The generated packages are stored in "./_packages".
 
 ## Example of use 💡
 
