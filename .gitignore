@@ -4,3 +4,4 @@ build
 _packages
 .nx
 cmake
+.nx/cache
