@@ -6,6 +6,7 @@
 #include <databaseService.h>
 #include <thread>
 #include <memory>
+#include <string.h>
 
 
 enum class MyArgs{
@@ -91,7 +92,7 @@ int main(int argc, char* argv[]){
         printManual();
         return 0;
     }
-    if(argv[1]=="--m"){
+    if(strcmp(argv[1],"--m")){
         printManual();
         return 0;
     }
@@ -105,7 +106,6 @@ int main(int argc, char* argv[]){
     std::string dbName;
 
     
-
     
     if(arg1=="--h"){
         printManual();
@@ -122,33 +122,33 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    int i=1;
+    int index_arguments=1;
 
-    while (i<argc){     
-        argumentsVector.push_back(std::string(argv[i]));
-        i++;
+    while (index_arguments<argc){     
+        argumentsVector.push_back(std::string(argv[index_arguments]));
+        index_arguments++;
     }
-    for (unsigned int i=0;i<argumentsVector.size()-1;i++){
-        MyArgs value= stringToMyArgs(argumentsVector[i]);
+    for (unsigned int index_vector_arguments=0;index_vector_arguments<argumentsVector.size()-1;index_vector_arguments++){
+        MyArgs value= stringToMyArgs(argumentsVector[index_vector_arguments]);
         switch (value){
             case MyArgs::t :                
-                tableName=argumentsVector.at(i+1);
-                i++;
+                tableName=argumentsVector.at(index_vector_arguments+1);
+                index_vector_arguments++;
                 break;
             case MyArgs::o :                
-                dbName=argumentsVector.at(i+1);
-                i++;
+                dbName=argumentsVector.at(index_vector_arguments+1);
+                index_vector_arguments++;
                 break;
             case MyArgs::f :                
-                dataFile=argumentsVector.at(i+1);
-                i++;
+                dataFile=argumentsVector.at(index_vector_arguments+1);
+                index_vector_arguments++;
                 break;
             case MyArgs::i :                
-                dataConfigFile = argumentsVector.at(i+1);
-                i++;
+                dataConfigFile = argumentsVector.at(index_vector_arguments+1);
+                index_vector_arguments++;
                 break;
             default:
-                i++;
+                index_vector_arguments++;
                 break;      
         }
     }
