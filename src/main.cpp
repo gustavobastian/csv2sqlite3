@@ -88,7 +88,7 @@ void printManual(){
  */
 int main(int argc, char* argv[]){
     
-    if(argc==0 | argc<2){
+    if(argc==0 ||  argc<2){
         printManual();
         return 0;
     }
