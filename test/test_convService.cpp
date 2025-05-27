@@ -15,12 +15,12 @@ TEST(CREATING_SERVICE, PASSING_PARAMETERS){
    EXPECT_EQ(output,false);
    delete myService;
    system("rm ./databaseTest1.db");
- }
+}
 
 TEST(CREATING_SERVICE, PASSING_COL_PARAMETERS){
    std::fstream dataConf{"dataConf.txt",dataConf.out};
    if(!dataConf.is_open()){
-        std::cout<<"Fail to generate  configuration file\n";
+        std::cout<<"Fail to generate  configuration file\n";        
     }
     else{
         dataConf<<"INTEGER,VARCHAR,DECIMAL,BLOB\n";
@@ -40,7 +40,7 @@ TEST(CREATING_SERVICE, PASSING_COL_PARAMETERS){
  TEST(CREATING_SERVICE, PASSING_FALSE_COL_PARAMETERS){
    std::fstream dataConf{"dataConf.txt",dataConf.out};
    if(!dataConf.is_open()){
-        std::cout<<"Fail to generate  configuration file\n";
+        std::cout<<"Fail to generate  configuration file\n";        
     }
     else{
         dataConf<<"INTEGER,SALT,DECIMAL,BLOB\n";

@@ -33,7 +33,7 @@ convService::convService(std::string dbName,std::string infoFile, std::string ta
 */
 bool convService::checkColumnsTypes(){
     //columns types
-    std::string lineConf,localConf;
+   
     
     const std::vector<std::string> validConf{"NUMERIC",
     "DECIMAL","SMALLINT","INT","INTEGER","BIGINT","FLOAT",
@@ -43,11 +43,12 @@ bool convService::checkColumnsTypes(){
     std::fstream columnF{this->confFile,columnF.in};
     
     if(!columnF.is_open()){
-        std::cout<<"Failed to open column configuration file.\n";
+        std::cerr<<"Failed to open column configuration file:"<<this->confFile<<"\n";
         columnF.close();
         return false;
     }
     else{
+        std::string lineConf,localConf;
         std::getline(columnF,lineConf);        
         std::stringstream s(lineConf);
         while(getline(s,localConf,',')){
@@ -58,7 +59,7 @@ bool convService::checkColumnsTypes(){
     //check
     for(auto i : vectorConf){
         if(std::find(validConf.begin(),validConf.end(),i)==std::end(validConf)){
-            std::cout<<"Unrecongnized column type:"<<i<< " \n";
+            std::cerr<<"Unrecongnized column type:"<<i<< " \n";
             columnF.close();
             return false;
         }
@@ -75,17 +76,16 @@ bool convService::checkColumnsTypes(){
 * @return false if there was a problem 
 */
 bool convService::checkColumnsNames(){
-    std::string lineNames,localName;
-    std::vector<std::string> vectorNames;
-    
+  
     //columns names
     std::fstream infoFile{this->dataFile,infoFile.in};
     
     if(!infoFile.is_open()){
-        std::cout<<"Failed to open column Names file\n";
+        std::cerr<<"Failed to open column Names file\n";
         return false;
     }
     else{
+        std::string lineNames,localName;
         std::getline(infoFile,lineNames);    
         std::stringstream s2(lineNames);
         while(getline(s2,localName,',')){
@@ -129,15 +129,13 @@ bool convService::generateTable(){
     //inserting elements
     std::string tableNameLocal{this->tableName};
     tableNameLocal+=" (";
-    for (auto i=0;i<this->vectorNames.size()-1;i++ ){
-        tableNameLocal+= vectorNames[i] +",";
+    for (auto table_index=0;table_index<this->vectorNames.size()-1;table_index++ ){
+        tableNameLocal+= vectorNames[table_index] +",";
     }
     tableNameLocal+=vectorNames[vectorNames.size()-1]+")";
     
     std::fstream infoFile{this->dataFile,infoFile.in};
-    std::string line;
-    unsigned int i=0;
-    unsigned int j=0;
+   
     if(!infoFile.is_open()){
         std::cout<<"Failed to open column Names file\n";
         return false;
@@ -146,6 +144,9 @@ bool convService::generateTable(){
         
         std::string progression=".";
         std::string sqlLocal;
+        std::string line;
+        unsigned int i=0;
+        unsigned int j=0;
         std::getline(infoFile,line);                    
         while(getline(infoFile,line)){  
             std::stringstream s{line};
@@ -155,8 +156,8 @@ bool convService::generateTable(){
             while(getline(s,local,',')){
                 vLocal.push_back("'"+local+"'");
             }
-            for(unsigned int i=0;i<vLocal.size()-1;i++){
-                sqlLocal+=vLocal[i]+",";
+            for(unsigned int index=0;index<vLocal.size()-1;index++){
+                sqlLocal+=vLocal[index]+",";
             }
             sqlLocal+=vLocal[vLocal.size()-1];   
             sqlLocal+="),";         
