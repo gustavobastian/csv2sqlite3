@@ -1,7 +1,6 @@
 # csv-sqlite Importer
 
-Console app for importing data from table in a csv file to a sqlite3 database. It was tested in a Ubuntu 24.04 (dev Branch).
-
+Simple console utility for importing data from table in a csv file to a sqlite3 database. It was tested in a Ubuntu 24.04 (dev Branch).
 
 ## Directory tree description
 
@@ -40,6 +39,10 @@ sudo apt-get install graphviz
 
 ## Building 🛠️
 
+There are 2 ways for building the application.
+
+* Local build:
+
 ```bash
 mkdir build
 cd build
@@ -50,6 +53,30 @@ cpack -G DEB
 
 The generated packages are stored in "./_packages".
 
+* Using Docker container (you must have installed docker):
+
+```bash
+docker build -t csv2sqlite3-image .
+docker create -i -t  --entrypoint="/bin/bash" --name cvs-container csv2sqlite3-image
+```
+
+Then, start the container:
+
+```bash
+docker start -i cvs-container
+```
+
+Exit and delete the container and the image:
+
+```bash
+exit
+docker container rm cvs-container
+docker rmi csv2sqlite3-image
+```
+
+
+
+
 ## Example of use 💡
 
 ```bash
@@ -58,7 +85,7 @@ csv2sqlite3 -f data.csv -i data.txt -o databaseName -t tableName
 
 Where 'data.csv' is the file with the data, 'data.txt' contains information of data type in each column, 'databaseName' is the name of the database, it will create a new one or update a previous. And 'tableName' is the name of the table.
 
-<details><summary>Example of the content of a 'data.txt' file🔍</summary><br>
+<details summary>Example of the content of a 'data.txt' file🔍</summary>
 
 ```bash
 INT,TEXT,TEXT,INT
@@ -66,10 +93,9 @@ INT,TEXT,TEXT,INT
 
 </details>
 
-
 ## Result ⚙️
 
-Tested importing 72274 registers (about 3.7 MB). 
+Tested importing 72274 registers (about 3.7 MB).
 
 ## Licence 📄
 

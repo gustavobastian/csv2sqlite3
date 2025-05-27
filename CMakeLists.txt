@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
 include(FetchContent)
+include(CPack)
 
 FetchContent_Declare(
   googletest
@@ -35,6 +36,7 @@ target_link_libraries(csv2sqlite3 convLib db2Lib sqlite3)
 enable_testing()
 
 add_test(tests ${PROJECT_BINARY_DIR}/test)
+
 set_tests_properties(tests PROPERTIES         ENVIRONMENT
                      DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/data)
 
@@ -43,7 +45,7 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(Packing)
+#include(Packing)
 
 # first we can indicate the documentation build as an option and set it to ON by default
 option(BUILD_DOC "Build documentation" OFF)
