@@ -26,19 +26,16 @@ include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_BUILD_DIR}/includ
 
 add_subdirectory( src/convService )
 add_subdirectory( src/dbService )
-add_subdirectory( test/ )
+
 
 add_executable(csv2sqlite3 src/main.cpp)
 
 target_include_directories(csv2sqlite3 PUBLIC  /include )
 target_link_libraries(csv2sqlite3 convLib db2Lib sqlite3)
 
+
 enable_testing()
-
-add_test(tests ${PROJECT_BINARY_DIR}/test)
-
-set_tests_properties(tests PROPERTIES         ENVIRONMENT
-                     DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/data)
+add_subdirectory(test)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
