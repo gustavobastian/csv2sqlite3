@@ -1,5 +1,9 @@
 # csv-sqlite Importer
 
+
+
+## Description
+
 Simple console utility for importing data from table in a csv file to a sqlite3 database. It was tested in a Ubuntu 24.04 (dev Branch).
 
 ## Directory tree description
