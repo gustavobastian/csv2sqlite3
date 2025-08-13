@@ -11,7 +11,14 @@ jobs:
     runs-on: ubuntu-latest # Or other runners like windows-latest, macos-latest
 
     steps:
-    - uses: actions/checkout@v4 # Checks out your repository
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Checks out your repository
+
+    - name: Install dependencies (optional, for specific libraries)
+            run: 
+              # Example: Install a library if your project needs it
+               sudo apt-get update
+               sudo apt-get install -y libgtest-dev googletest google-mock libgmock-dev
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release # Configures the project
