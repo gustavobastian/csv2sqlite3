@@ -5,7 +5,9 @@ FROM ubuntu:25.04
 
 RUN apt update && \
     apt install -y git python3 && \
-    apt install -y binutils build-essential cmake libgtest-dev libsqlite3-0 libsqlite3-dev 
+    apt install -y binutils build-essential cmake libgtest-dev libsqlite3-0 libsqlite3-dev && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
 
 # For security adding a new user and directory
 RUN useradd -ms /bin/bash csvUser
