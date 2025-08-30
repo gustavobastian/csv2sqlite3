@@ -1,6 +1,5 @@
-# csv-sqlite Importer
-
-
+# csv-sqlite Importer 
+[![Ubuntu](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml/badge.svg)](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml)
 
 ## Description
 
