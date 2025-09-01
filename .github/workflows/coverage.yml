@@ -10,7 +10,7 @@ jobs:
     - name: Install dependencies (optional, for specific libraries)
       run: |
             sudo apt-get update
-            sudo apt-get install -y libgtest-dev googletest google-mock libgmock-dev  
+            sudo apt-get install -y libgtest-dev googletest google-mock libgmock-dev gcovr lcov
     - name: Configure CMake
       run: cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCOVERAGE=ON # Enable coverage
     - name: Build
@@ -20,7 +20,7 @@ jobs:
     - name: Generate Coverage Report
       run: |
         cd build
-        gcovr -r .. --xml-pretty --output coverage.xml # Generate Cobertura XML
+        gcovr -r .. --xml-pretty --output coverage.xml # Generate Cobertura XML        
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
