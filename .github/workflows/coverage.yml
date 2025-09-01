@@ -1,0 +1,28 @@
+name: C++ Code Coverage
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies (optional, for specific libraries)
+      run: |
+            sudo apt-get update
+            sudo apt-get install -y libgtest-dev googletest google-mock libgmock-dev  
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCOVERAGE=ON # Enable coverage
+    - name: Build
+      run: cmake --build build
+    - name: Run Tests
+      run: cd build && ctest --output-on-failure
+    - name: Generate Coverage Report
+      run: |
+        cd build
+        gcovr -r .. --xml-pretty --output coverage.xml # Generate Cobertura XML
+    - name: Upload Coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./build/coverage.xml
+        fail_ci_if_error: true
