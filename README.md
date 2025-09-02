@@ -13,10 +13,11 @@ Simple console utility for importing data from table in a csv file to a sqlite3 
 * /data : has some example files for using during tests.
 * /cmake : has information for packaging the project.
 * /docs : has information for generating the documentation with doxygen.
-* /img: place for saving images(not used)
+* /images: place for saving images.
 * /include: header files.
 * /src : source files.
 * /test : test files.
+* /.github : files for github actions and issue reporting.
 
 ## Purpose 🤔
 
@@ -24,7 +25,11 @@ The objetive of this small project is import information from csvs files(from on
 
 ## System requirements  for building 📝
 
-This app is needs Cmake 3.15. For running the test files you must navigate to ./build/test, and the inside the directory run the programs.
+This app is needs Cmake 3.15. For running the test files you must navigate to ./build/test, and the inside the directory run the programs. For testing and coverage, gcovr and lcov  must have been installed.
+
+```bash
+sudo apt-get install -y  gcovr lcov
+```
 
 ## System requirements  for running 📝
 
