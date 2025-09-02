@@ -1,5 +1,7 @@
 # csv-sqlite Importer 
-[![Ubuntu](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml/badge.svg)](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml)
+Platforms: [![Ubuntu](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml/badge.svg)](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml)
+
+Testing coverage: [![codecov](https://codecov.io/github/gustavobastian/csv2sqlite3/graph/badge.svg?token=LOXWSTKRJE)](https://codecov.io/github/gustavobastian/csv2sqlite3)
 
 ## Description
 
