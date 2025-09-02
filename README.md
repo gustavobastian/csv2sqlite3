@@ -1,4 +1,5 @@
 # csv-sqlite Importer 
+
 Platforms: [![Ubuntu](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml/badge.svg)](https://github.com/gustavobastian/csv2sqlite3/actions/workflows/linux.yml)
 
 Testing coverage: [![codecov](https://codecov.io/github/gustavobastian/csv2sqlite3/graph/badge.svg?token=LOXWSTKRJE)](https://codecov.io/github/gustavobastian/csv2sqlite3)
@@ -58,6 +59,26 @@ cpack -G DEB
 
 The generated packages are stored in "./_packages".
 
+* Testing locally:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+ctest -T test
+```
+
+* Test Coverage(in build directory):
+
+```bash
+make coverage
+```
+
+Then after generating the report, it is located in build/coverage/html/index.html.
+
+![image](images/image.png)
+
 * Using Docker container (you must have installed docker):
 
 ```bash
@@ -78,9 +99,6 @@ exit
 docker container rm cvs-container
 docker rmi csv2sqlite3-image
 ```
-
-
-
 
 ## Example of use 💡
 
